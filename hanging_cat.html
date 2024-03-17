@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hanging Cat Animation</title>
+<style>
+  html {
+    cursor: url('mouse.png') 16 16, auto;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+  }
+
+  .container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 300px;
+    animation: swingContainer 2s ease-in-out infinite alternate;
+  }
+
+  .line {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform-origin: top;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 90%;
+    background-color: #333;
+    z-index: 0;
+  }
+
+  .cat-container {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+  }
+
+  .cat {
+    width: 100px;
+    height: auto;
+  }
+
+  @keyframes swingContainer {
+    0% {
+      transform: rotate(-2deg);
+    }
+    100% {
+      transform: rotate(2deg);
+    }
+  }
+</style>
+</head>
+<body>
+<div class="container" id="container">
+  <div class="line" id="line"></div>
+  <div class="cat-container">
+    <img class="cat" src="cat.png" alt="Hanging Cat">
+  </div>
+</div>
+
+<script>
+    var lastX = 0; // Initialize the variable to store the previous X position of the cursor
+    var container = document.getElementById('container'); // Get the container element
+  
+    // Listen for the mousemove event
+    document.addEventListener('mousemove', function(e) {
+      // Calculate the difference in X position between the current and previous cursor positions
+      var deltaX = e.clientX - lastX;
+  
+      // Update the rotation angle of the container based on the difference in X position
+      container.style.transform = 'rotate(' + (deltaX / 10) + 'deg)';
+  
+      // Store the current X position of the cursor for the next iteration
+      lastX = e.clientX;
+    });
+  </script>
+</body>
+</html>
